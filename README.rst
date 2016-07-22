@@ -1,8 +1,8 @@
-mzml2isa-qt
-===========
+imzml2isa-qt
+============
 
-A PyQt interface for mzml2isa parser.
-'''''''''''''''''''''''''''''''''''''
+A PyQt interface for mzml2isa parser - imzML edition.
+''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Overview
 --------
@@ -10,7 +10,7 @@ Overview
 This program is a Graphical User Interface for the
 `mzml2isa <https://github.com/althonos/mzml2isa>`__ parser. It provides
 an easy-to-use interface to convert mzML files to an ISA-Tab Study. It
-was made with Python3 and PyQt5
+was made with Python3 and PyQt5.
 
 Install
 -------
@@ -23,17 +23,17 @@ If ``pip`` is present on your system (comes along most of Python install
 
 .. code:: bash
 
-    pip3 install mzml2isa-qt
+    pip3 install imzml2isa-qt
 
 Without PIP
 ~~~~~~~~~~~
 
-Once dependencies installed, clone the **mzml2isa-qt** repository to a
+Once dependencies installed, clone the **imzml2isa-qt** repository to a
 folder with writing permissions:
 
 .. code:: bash
 
-    git clone git://github.com/althonos/mzml2isa-qt
+    git clone git://github.com/althonos/imzml2isa-qt
 
 After that, either run the GUI directly:
 
@@ -41,16 +41,16 @@ After that, either run the GUI directly:
 
     python3 run.py
 
-Or install it locally to run with ``mzmlisa-qt`` command:
+Or install it locally to run with ``imzmlisa-qt`` command:
 
 .. code:: bash
 
-    cd mzml2isa-qt && python3 setup.py install
+    cd imzml2isa-qt && python3 setup.py install
 
 Use
 ---
 
-Open the GUI with the ``mzml2isa-qt`` command. To simply parse **.mzML**
+Open the GUI with the ``imzml2isa-qt`` command. To simply parse **.imzML**
 files to **ISA**, select the directory containing your files. With
 default settings, the program will create the new ISA files in that
 folder, assuming the folder's name is the study identifier (*MTBSLxxx*
@@ -71,9 +71,10 @@ be enhanced after the end of the parsing** (using for instance
 Creator <http://www.ebi.ac.uk/metabolights/>`__ to add missing fields).
 
 Missing information required for MetaboLights upload are at the moment:
-\* Study Factors (sample dependent, must be added to the *study* file
-and to the *investigation* file) \* Metabolite Assignment Files \* Study
-Designs
+- Study Factors (sample dependent, must be added to the *study* file
+  and to the *investigation* file)
+- Metabolite Assignment Files
+- Study Designs
 
 TODO
 ----
