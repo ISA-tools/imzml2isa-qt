@@ -142,7 +142,7 @@ class ParserThread(QThread):
             self.setStudyBar.emit(sindex)
 
             # Find all mzml files
-            mzml_path = os.path.join(os.path.join(self.inputDir, study), "*.mzML")
+            mzml_path = os.path.join(os.path.join(self.inputDir, study), "*.imzML")
             mzml_files = [mzML for mzML in glob.glob(mzml_path)]
             mzml_files.sort()
 
@@ -163,7 +163,7 @@ class ParserThread(QThread):
 
                 # Parse file
                 try:
-                    metalist.append(mzml2isa.mzml.mzMLmeta(mzml_file).meta)
+                    metalist.append(mzml2isa.mzml.imzMLmeta(mzml_file).meta)
                 except Exception as e:
                     self.ErrorSig.emit('An error was encountered while parsing {} (study {}):\n\n{}'.format(os.path.basename(mzml_file),
                                                                                                             study,
@@ -175,7 +175,7 @@ class ParserThread(QThread):
 
             # Create the isa Tab
             try:
-                isa_tab_create = mzml2isa.isa.ISA_Tab(self.outputDir, study, self.userMeta).write(metalist, 'mzML')
+                isa_tab_create = mzml2isa.isa.ISA_Tab(self.outputDir, study, self.userMeta).write(metalist, 'imzML')
             except Exception as e:
                 self.ErrorSig.emit('An error was encountered while writing ISA-Tab (study {}):\n\n{}'.format(study,
                                                                                                              str(type(e).__name__)+" "+str(e)
@@ -197,7 +197,7 @@ class ParserThread(QThread):
         self.LabelStudy.emit(self.studyName)
 
         # Find all mzml files
-        mzml_path = os.path.join(self.inputDir, "*.mzML")
+        mzml_path = os.path.join(self.inputDir, "*.imzML")
         mzml_files = [mzML for mzML in glob.glob(mzml_path)]
         mzml_files.sort()
 
@@ -217,7 +217,7 @@ class ParserThread(QThread):
 
             # Parse file
             try:
-                metalist.append(mzml2isa.mzml.mzMLmeta(mzml_file).meta)
+                metalist.append(mzml2isa.mzml.imzMLmeta(mzml_file).meta)
             except Exception as e:
                 self.ErrorSig.emit('An error was encountered while parsing {}:\n\n{}'.format(os.path.basename(mzml_file),
                                                                                              str(type(e).__name__)+" "+str(e)
@@ -230,7 +230,7 @@ class ParserThread(QThread):
         # Create the isa Tab
         self.Console.emit("> Creating ISA-Tab files")
         try:
-            mzml2isa.isa.ISA_Tab( self.outputDir, self.studyName, self.userMeta).write(metalist, 'mzML')
+            mzml2isa.isa.ISA_Tab( self.outputDir, self.studyName, self.userMeta).write(metalist, 'imzML')
 
         except Exception as e:
             self.ErrorSig.emit('An error was encountered while writing ISA-Tab in {}:\n\n{}'.format(self.outputDir,

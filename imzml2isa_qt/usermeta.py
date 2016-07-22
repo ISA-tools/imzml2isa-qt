@@ -36,26 +36,26 @@ UNIT = {
 
 
 
-USERMETA = {'characteristics':           {'organism': {'value':'', 'accession':'', 'ref':''},
-                                          'organism_variant':  {'value':'', 'accession':'', 'ref':''},
-                                          'organism_part':     {'value':'', 'accession':'', 'ref':''},
+USERMETA = {'characteristics':           {'organism': {'name':'', 'accession':'', 'ref':''},
+                                          'organism_variant':  {'name':'', 'accession':'', 'ref':''},
+                                          'organism_part':     {'name':'', 'accession':'', 'ref':''},
                                          },
             'investigation':             {'identifier': '', 'title': 'Investigation', 'description': '',
                                           'submission_date':'', 'release_date':''
                                          },
             'investigation_publication': {'pubmed': '', 'doi': '', 'author_list': '', 'title':'',
-                                          'status': {'value':'', 'accession':'', 'ref':'PSO'},
+                                          'status': {'name':'', 'accession':'', 'ref':'PSO'},
                                          },
 
             'study':                     {
                                           'title': '', 'description': '', 'submission_date':'', 'release_date':'',
                                          },
             'study_publication':         {'pubmed': '', 'doi': '', 'author_list': '', 'title':'',
-                                          'status': {'value':'', 'accession':'', 'ref':'PSO'},
+                                          'status': {'name':'', 'accession':'', 'ref':'PSO'},
                                          },
 
-            'description':               {'sample_collect':'', 'extraction':'', 'chroma':'', 'mass_spec':'',
-                                          'data_trans':'', 'metabo_id':''
+            'description':               {'sample_collect':'', 'preparation':'', 'mass_spec':'',
+                                          'histology':'', 'data_trans':'', 'metabo_id':''
                                          },
 
 
@@ -65,14 +65,14 @@ USERMETA = {'characteristics':           {'organism': {'value':'', 'accession':'
             'study_contacts':            [
                                             {'first_name': '', 'last_name': '', 'mid':'', 'email':'',
                                              'fax': '', 'phone':'', 'adress':'', 'affiliation':'',
-                                             'roles': {'value':'', 'accession':'', 'ref':''},
+                                             'roles': {'name':'', 'accession':'', 'ref':''},
                                             },
                                          ],
 
             'investigation_contacts':    [
                                             {'first_name': '', 'last_name': '', 'mid':'', 'email':'',
                                              'fax': '', 'phone':'', 'adress':'', 'affiliation':'',
-                                             'roles': {'value':'', 'accession':'', 'ref':''},
+                                             'roles': {'name':'', 'accession':'', 'ref':''},
                                             },
                                          ],
 
@@ -107,7 +107,6 @@ class UserMetaDialog(QDialog):
         self.ui.buttonBox.button(QDialogButtonBox.Ok).clicked.connect(self.saveandquit)
         self.ui.buttonBox.button(QDialogButtonBox.Cancel).clicked.connect(self.reject)
 
-
         # Connect Contacts buttons
         self.ui.add_contact.clicked.connect(lambda: self.addContact('study'))
         self.ui.rm_contact.clicked.connect(lambda: self.rmContact('study'))
@@ -117,12 +116,27 @@ class UserMetaDialog(QDialog):
         self.ui.edit_contact_2.clicked.connect(lambda: self.editContact('investigation'))
 
         # Connect Characteristics buttons
-        self.ui.search_organism.clicked.connect(lambda: self.searchCharacteristics('organism'))
-        self.ui.search_organism_part.clicked.connect(lambda: self.searchCharacteristics('organism_part'))
-        self.ui.search_organism_variant.clicked.connect(lambda: self.searchCharacteristics('organism_variant'))
-        self.ui.rm_organism.clicked.connect(lambda: self.rmCharacteristics('organism'))
-        self.ui.rm_organism_part.clicked.connect(lambda: self.rmCharacteristics('organism_part'))
-        self.ui.rm_organism_variant.clicked.connect(lambda: self.rmCharacteristics('organism_variant'))
+        self.ui.search_organism.clicked.connect(lambda: self.searchCvTerm('organism'))
+        self.ui.search_organism_part.clicked.connect(lambda: self.searchCvTerm('organism_part'))
+        self.ui.search_organism_variant.clicked.connect(lambda: self.searchCvTerm('organism_variant'))
+        self.ui.rm_organism.clicked.connect(lambda: self.rmCvTerm('organism'))
+        self.ui.rm_organism_part.clicked.connect(lambda: self.rmCvTerm('organism_part'))
+        self.ui.rm_organism_variant.clicked.connect(lambda: self.rmCvTerm('organism_variant'))
+
+        # Connect Material / Methods
+        self.ui.search_sample_mounting.clicked.connect(lambda: self.searchCvTerm('sample_mounting'))
+        self.ui.search_sample_preservation.clicked.connect(lambda: self.searchCvTerm('sample_preservation'))
+        self.ui.search_sectioning_instrument.clicked.connect(lambda: self.searchCvTerm('sectioning_instrument'))
+        self.ui.search_unit_section_thickness.clicked.connect(lambda: self.searchCvTerm('unit_section_thickness'))
+        self.ui.search_stain.clicked.connect(lambda: self.searchCvTerm('stain'))
+        self.ui.rm_sample_mounting.clicked.connect(lambda: self.rmCvTerm('sample_mounting'))
+        self.ui.rm_sample_preservation.clicked.connect(lambda: self.rmCvTerm('sample_preservation'))
+        self.ui.rm_sectioning_instrument.clicked.connect(lambda: self.rmCvTerm('sectioning_instrument'))
+        self.ui.rm_unit_section_thickness.clicked.connect(lambda: self.rmCvTerm('unit_section_thickness'))
+        self.ui.rm_stain.clicked.connect(lambda: self.rmCvTerm('stain'))
+
+        # Connect Unit combo box
+        self.ui.combo_unit_spatial_resolution.activated[str].connect(self.updateSpatialResUnit)
 
         # Setup Contacts model / view
         self.ui.model_contacts = QStandardItemModel(0,11)
@@ -208,7 +222,7 @@ class UserMetaDialog(QDialog):
         ## EXPERIMENTS
         ### Characteristics
         for key in self.metadata['characteristics'].keys():
-            for ontokey in ('value', 'accession', 'ref'):
+            for ontokey in ('name', 'accession', 'ref'):
                 getattr(self.ui, ontokey+'_'+key).setText(self.metadata['characteristics'][key][ontokey])
 
         ### Descriptions
@@ -232,8 +246,6 @@ class UserMetaDialog(QDialog):
             self.ui.ref_unit_spatial_resolution.setText(UNIT[unit][ref])
             self.ui.accession_unit_spatial_resolution.setText(Unit[unit][accession])
 
-
-
     def getFields(self):
         """Get intel from dialog fields."""
 
@@ -249,7 +261,7 @@ class UserMetaDialog(QDialog):
         self.metadata['study_publication']['doi'] = self.ui.doi.text()
         self.metadata['study_publication']['title'] = self.ui.pub_title.text()
         self.metadata['study_publication']['author_list'] = self.ui.authors_list.toPlainText()
-        self.metadata['study_publication']['status']['value'] = self.ui.combo_status.currentText() if self.ui.status.text() else ''
+        self.metadata['study_publication']['status']['name'] = self.ui.combo_status.currentText() if self.ui.status.text() else ''
         self.metadata['study_publication']['status']['accession'] = self.ui.status.text()
         self.metadata['study_publication']['status']['ref'] = 'PSO' if self.ui.status.text() else ''
         ### Contact
@@ -266,7 +278,7 @@ class UserMetaDialog(QDialog):
         self.metadata['investigation_publication']['doi'] = self.ui.doi_2.text()
         self.metadata['investigation_publication']['title'] = self.ui.pub_title_2.text()
         self.metadata['investigation_publication']['author_list'] = self.ui.authors_list_2.toPlainText()
-        self.metadata['investigation_publication']['status']['value'] = self.ui.combo_status_2.currentText() if self.ui.status_2.text() else ""
+        self.metadata['investigation_publication']['status']['name'] = self.ui.combo_status_2.currentText() if self.ui.status_2.text() else ""
         self.metadata['investigation_publication']['status']['accession'] = self.ui.status_2.text()
         self.metadata['investigation_publication']['status']['ref'] = 'PSO' if self.ui.status_2.text() else ''
         ### Contact
@@ -275,7 +287,7 @@ class UserMetaDialog(QDialog):
         ## EXPERIMENTS
         ## Characteristics
         for key in self.metadata['characteristics'].keys():
-            for ontokey in ('value', 'accession', 'ref'):
+            for ontokey in ('name', 'accession', 'ref'):
                 self.metadata['characteristics'][key][ontokey] = getattr(self.ui, ontokey+'_'+key).text()
 
         ### Descriptions
@@ -318,7 +330,7 @@ class UserMetaDialog(QDialog):
             else:
                 contact[key] = {'accession': model.item(row_index, i).text(),
                                 'ref': model.item(row_index, i+1).text(),
-                                'value': model.item(row_index, i+2).text()
+                                'name': model.item(row_index, i+2).text()
                                }
         return contact
 
@@ -327,7 +339,7 @@ class UserMetaDialog(QDialog):
         self.contact.exec_()
         getattr(self.ui, 'model_contacts' + SUFFIX[contact_type]).appendRow(
             [QStandardItem(self.contact.contact[key]) for key in CONTACT.keys() if key != 'roles'] \
-            + [QStandardItem(self.contact.contact['roles'][key]) for key in ('accession', 'ref', 'value')]
+            + [QStandardItem(self.contact.contact['roles'][key]) for key in ('accession', 'ref', 'name')]
         )
 
     def rmContact(self, contact_type):
@@ -350,7 +362,7 @@ class UserMetaDialog(QDialog):
             model.removeRow(row_index)
             model.insertRow(row_index,
                 [QStandardItem(self.contact.contact[key]) for key in CONTACT.keys() if key != 'roles'] \
-                + [QStandardItem(self.contact.contact['roles'][key]) for key in ('accession', 'ref', 'value')]
+                + [QStandardItem(self.contact.contact['roles'][key]) for key in ('accession', 'ref', 'name')]
             )
 
     def fillContacts(self, contacts, contact_type):
@@ -359,7 +371,7 @@ class UserMetaDialog(QDialog):
             if contact != CONTACT:
                 model.appendRow(
                     [QStandardItem(contact[key]) for key in CONTACT.keys() if key != 'roles'] \
-                    + [QStandardItem(contact['roles'][key]) for key in ('accession', 'ref', 'value')]
+                    + [QStandardItem(contact['roles'][key]) for key in ('accession', 'ref', 'name')]
                 )
 
     def fillPSOComboBoxes(self, jsontology):
@@ -380,13 +392,13 @@ class UserMetaDialog(QDialog):
             self.ui.combo_status_2.addItem("")
             self.ui.combo_status_2.setItemText(i, _translate("Dialog", status))
         # Chek if value to display
-        if self.metadata['study_publication']['status']['value']:
-            self.ui.combo_status.setCurrentText(self.metadata['study_publication']['status']['value'])
+        if self.metadata['study_publication']['status']['name']:
+            self.ui.combo_status.setCurrentText(self.metadata['study_publication']['status']['name'])
             self.ui.status.setText(self.metadata['study_publication']['status']['accession'])
         else:
             self.ui.combo_status.setCurrentIndex(-1)
-        if self.metadata['investigation_publication']['status']['value']:
-            self.ui.combo_status_2.setCurrentText(self.metadata['investigation_publication']['status']['value'])
+        if self.metadata['investigation_publication']['status']['name']:
+            self.ui.combo_status_2.setCurrentText(self.metadata['investigation_publication']['status']['name'])
             self.ui.status_2.setText(self.metadata['investigation_publication']['status']['accession'])
         else:
             self.ui.combo_status_2.setCurrentIndex(-1)
@@ -399,19 +411,23 @@ class UserMetaDialog(QDialog):
         self.ui.combo_status.setEnabled(True)
         self.ui.combo_status_2.setEnabled(True)
 
-    def searchCharacteristics(self, characteristic):
+    def searchCvTerm(self, term):
         """Open an OlsDialog for the right characteristic"""
         self.ols = OlsDialog(self)
         if self.ols.exec_():
-            getattr(self.ui, 'value_'+characteristic).setText(self.ols.entry['label'])
-            getattr(self.ui, 'ref_'+characteristic).setText(self.ols.entry['ontology_prefix'].upper())
-            getattr(self.ui, 'accession_'+characteristic).setText(self.ols.entry['iri'])
+            getattr(self.ui, 'name_'+term).setText(self.ols.entry['label'])
+            getattr(self.ui, 'ref_'+term).setText(self.ols.entry['ontology_prefix'].upper())
+            getattr(self.ui, 'accession_'+term).setText(self.ols.entry['iri'])
 
-    def rmCharacteristics(self, characteristic):
+    def rmCvTerm(self, term):
         """Empty given characteristic fields."""
-        getattr(self.ui, 'name_'+characteristic).setText('')
-        getattr(self.ui, 'ref_'+characteristic).setText('')
-        getattr(self.ui, 'iri_'+characteristic).setText('')
+        getattr(self.ui, 'name_'+term).setText('')
+        getattr(self.ui, 'ref_'+term).setText('')
+        getattr(self.ui, 'accession_'+term).setText('')
+
+    def updateSpatialResUnit(self, text):
+        self.ui.accession_unit_spatial_resolution.setText(UNIT[text]['accession'])
+        self.ui.ref_unit_spatial_resolution.setText(UNIT[text]['ref'])
 
 
 if __name__=='__main__':
