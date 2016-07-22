@@ -6,7 +6,7 @@ import glob
 import sys
 import os
 
-import mzml2isa_qt
+import imzml2isa_qt
 
 if sys.version_info[0] != 3:
     sys.exit("error: this is a python3 program.")
@@ -14,8 +14,8 @@ if sys.version_info[0] != 3:
 
 ## SETUPTOOLS VERSION
 setup(
-    name='mzml2isa-qt',
-    version=mzml2isa_qt.__version__,
+    name='imzml2isa-qt',
+    version=imzml2isa_qt.__version__,
 
     packages=find_packages(),
 
