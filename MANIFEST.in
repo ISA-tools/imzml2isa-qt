@@ -1,2 +1,2 @@
-include mzml2isa_qt/ontologies/*.json
-include README.md
+include imzml2isa_qt/ontologies/*.json
+include README.rst
