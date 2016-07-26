@@ -32,7 +32,7 @@
    <enum>Qt::DefaultContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>mzML to ISA-Tab</string>
+   <string>imzML to ISA-Tab</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
@@ -274,7 +274,7 @@
      <enum>Qt::ToolButtonTextOnly</enum>
     </property>
    </widget>
-   <widget class="QCheckBox" name="cBox_separate">
+   <widget class="QCheckBox" name="cBox_merge">
     <property name="geometry">
      <rect>
       <x>10</x>

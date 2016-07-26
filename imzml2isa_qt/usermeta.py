@@ -28,6 +28,7 @@ SUFFIX = {'study':'', 'investigation':'_2'}
 
 
 UNIT = {
+            'cm': {'name':'centimeter', 'ref':'UO', 'accession':'http://purl.obolibrary.org/obo/UO_0000015'},
             'mm': {'name':'millimeter', 'ref':'UO', 'accession':'http://purl.obolibrary.org/obo/UO_0000016'},
             'nm': {'name':'nanometer', 'ref':'UO', 'accession':'http://purl.obolibrary.org/obo/UO_0000018'},
             'pm': {'name':'picometer', 'ref':'UO', 'accession':'http://purl.obolibrary.org/obo/UO_0000020'},
@@ -127,16 +128,16 @@ class UserMetaDialog(QDialog):
         self.ui.search_sample_mounting.clicked.connect(lambda: self.searchCvTerm('sample_mounting'))
         self.ui.search_sample_preservation.clicked.connect(lambda: self.searchCvTerm('sample_preservation'))
         self.ui.search_sectioning_instrument.clicked.connect(lambda: self.searchCvTerm('sectioning_instrument'))
-        self.ui.search_unit_section_thickness.clicked.connect(lambda: self.searchCvTerm('unit_section_thickness'))
         self.ui.search_stain.clicked.connect(lambda: self.searchCvTerm('stain'))
         self.ui.rm_sample_mounting.clicked.connect(lambda: self.rmCvTerm('sample_mounting'))
         self.ui.rm_sample_preservation.clicked.connect(lambda: self.rmCvTerm('sample_preservation'))
         self.ui.rm_sectioning_instrument.clicked.connect(lambda: self.rmCvTerm('sectioning_instrument'))
-        self.ui.rm_unit_section_thickness.clicked.connect(lambda: self.rmCvTerm('unit_section_thickness'))
         self.ui.rm_stain.clicked.connect(lambda: self.rmCvTerm('stain'))
 
         # Connect Unit combo box
-        self.ui.combo_unit_spatial_resolution.activated[str].connect(self.updateSpatialResUnit)
+        self.ui.combo_unit_spatial_resolution.activated[str].connect(lambda x: self.updateUnit('spatial_resolution', x))
+        self.ui.combo_unit_section_thickness.activated[str].connect(lambda x: self.updateUnit('section_thickness', x))
+
 
         # Setup Contacts model / view
         self.ui.model_contacts = QStandardItemModel(0,11)
@@ -235,16 +236,16 @@ class UserMetaDialog(QDialog):
             for ontokey in ('name', 'accession', 'ref'):
                 getattr(self.ui, ontokey+'_'+key.lower().replace(' ', '_')).setText(self.metadata[key][ontokey])
 
-        self.ui.value_section_thickness.setText(self.metadata['Section thickness']['value'])
-        for ontokey in ('name', 'accession', 'ref'):
-            getattr(self.ui, ontokey+'_unit_section_thickness').setText(self.metadata['Section thickness']['unit'][ontokey])
+        for key in ('Spatial resolution', 'Section thickness'):
+            slug = key.lower().replace(' ', '_')
+            if self.metadata[key]['value']:
+                getattr(self.ui, 'value_{}'.format(slug)).setText(self.metadata[key]['value'])
+                abbreviated_unit = next(x for x,y in UNIT.items() if y == self.metadata[key]['unit'])
+                getattr(self.ui, 'combo_unit_{}'.format(slug)).setCurrentIndex( getattr(self.ui, 'combo_unit_{}'.format(slug)).findText(abbreviated_unit) )
+                getattr(self.ui, 'ref_unit_{}'.format(slug)).setText(self.metadata[key]['unit']['ref'])
+                getattr(self.ui, 'accession_unit_{}'.format(slug)).setText(self.metadata[key]['unit']['accession'])
 
-        if self.metadata['Spatial resolution']['value']:
-            self.ui.value_spatial_resolution.setText(self.metadata['Spatial resolution']['value'])
-            unit = next(x for x,y in UNIT.items() if y[0] == self.metadata['Spatial resolution']['value'][0])
-            self.ui.combo_unit_spatial_resolution.setItemText(unit)
-            self.ui.ref_unit_spatial_resolution.setText(UNIT[unit][ref])
-            self.ui.accession_unit_spatial_resolution.setText(Unit[unit][accession])
+
 
     def getFields(self):
         """Get intel from dialog fields."""
@@ -299,13 +300,12 @@ class UserMetaDialog(QDialog):
             for ontokey in ('name', 'accession', 'ref'):
                 self.metadata[key][ontokey] = getattr(self.ui, ontokey+'_'+key.lower().replace(' ', '_')).text()
 
-        self.metadata['Section thickness']['value'] = self.ui.value_section_thickness.text()
-        for ontokey in ('name', 'accession', 'ref'):
-            self.metadata['Section thickness']['unit'][ontokey] = getattr(self.ui, ontokey+'_unit_section_thickness').text()
+        for key in ('Spatial resolution', 'Section thickness'):
+            slug = key.lower().replace(' ', '_')
+            self.metadata[key]['value'] = getattr(self.ui, 'value_{}'.format(slug)).text()
+            if self.metadata[key]['value']:
+                self.metadata[key]['unit'] = UNIT[getattr(self.ui, 'combo_unit_{}'.format(slug)).currentText()]
 
-        self.metadata['Spatial resolution']['value'] = self.ui.value_spatial_resolution.text()
-        if self.ui.value_spatial_resolution.text():
-            self.metadata['Spatial resolution']['unit'] = UNIT[self.ui.combo_unit_spatial_resolution.currentText()]
 
     def getContactFields(self, contact_type):
         """Unified method to get either Study contact or Investigation contact fields"""
@@ -425,9 +425,9 @@ class UserMetaDialog(QDialog):
         getattr(self.ui, 'ref_'+term).setText('')
         getattr(self.ui, 'accession_'+term).setText('')
 
-    def updateSpatialResUnit(self, text):
-        self.ui.accession_unit_spatial_resolution.setText(UNIT[text]['accession'])
-        self.ui.ref_unit_spatial_resolution.setText(UNIT[text]['ref'])
+    def updateUnit(self, param, text):
+        getattr(self.ui, 'accession_unit_{}'.format(param)).setText(UNIT[text]['accession'])
+        getattr(self.ui, 'ref_unit_{}'.format(param)).setText(UNIT[text]['ref'])
 
 
 if __name__=='__main__':

@@ -1818,7 +1818,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
       </rect>
      </property>
      <property name="placeholderText">
-      <string>e.g. VTO</string>
+      <string/>
      </property>
     </widget>
     <widget class="QPushButton" name="search_sample_mounting">
@@ -1863,7 +1863,7 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. http://purl.obolibrary.org/obo/VTO_0011993</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_48">
@@ -1927,7 +1927,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. Homo sapiens</string>
+      <string>e.g. Thermo Scientific X72 SuperFrost Plus Adhesion slide</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_69">
@@ -2010,7 +2010,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
       </rect>
      </property>
      <property name="placeholderText">
-      <string>e.g. VTO</string>
+      <string>e.g. OBI</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_72">
@@ -2068,7 +2068,7 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. http://purl.obolibrary.org/obo/VTO_0011993</string>
+      <string>e.g. http://purl.obolibrary.org/obo/OBI_0001952</string>
      </property>
     </widget>
     <widget class="QPushButton" name="rm_sample_preservation">
@@ -2113,7 +2113,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. Homo sapiens</string>
+      <string>e.g. Flash Freezing</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_73">
@@ -2216,7 +2216,7 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. http://purl.obolibrary.org/obo/VTO_0011993</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLineEdit" name="name_sectioning_instrument">
@@ -2235,7 +2235,7 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. Homo sapiens</string>
+      <string>e.g. Thermo Scientific Shandon Cryotome</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="ref_sectioning_instrument">
@@ -2251,7 +2251,7 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       </rect>
      </property>
      <property name="placeholderText">
-      <string>e.g. VTO</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_75">
@@ -2283,168 +2283,17 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="search_unit_section_thickness">
-     <property name="geometry">
-      <rect>
-       <x>780</x>
-       <y>245</y>
-       <width>40</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>EBI-Conceptual</family>
-       <pointsize>14</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 14pt &quot;:/fonts/assets/fonts/EBI-Conceptual.ttf&quot;;
-font-family: &quot;EBI-Conceptual&quot;;</string>
-     </property>
-     <property name="text">
-      <string>o</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_77">
      <property name="geometry">
       <rect>
        <x>90</x>
-       <y>245</y>
+       <y>250</y>
        <width>64</width>
        <height>25</height>
       </rect>
      </property>
      <property name="text">
       <string>Value:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="rm_unit_section_thickness">
-     <property name="geometry">
-      <rect>
-       <x>830</x>
-       <y>245</y>
-       <width>40</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>EBI-Functional</family>
-       <pointsize>12</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 12pt &quot;:/fonts/assets/fonts/EBI-Functional.ttf&quot;;
-font-family: &quot;EBI-Functional&quot;;</string>
-     </property>
-     <property name="text">
-      <string>d</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_78">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>275</y>
-       <width>64</width>
-       <height>15</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>IRI:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="accession_unit_section_thickness">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>399</x>
-       <y>270</y>
-       <width>371</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="placeholderText">
-      <string>e.g. http://purl.obolibrary.org/obo/VTO_0011993</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="ref_unit_section_thickness">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>160</x>
-       <y>270</y>
-       <width>205</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="placeholderText">
-      <string>e.g. VTO</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_79">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>270</y>
-       <width>64</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ref:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="name_unit_section_thickness">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>399</x>
-       <y>245</y>
-       <width>371</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="placeholderText">
-      <string>e.g. Homo sapiens</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_80">
-     <property name="geometry">
-      <rect>
-       <x>335</x>
-       <y>245</y>
-       <width>64</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Unit:</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2457,13 +2306,16 @@ font-family: &quot;EBI-Functional&quot;;</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>245</y>
-       <width>205</width>
+       <y>250</y>
+       <width>121</width>
        <height>25</height>
       </rect>
      </property>
+     <property name="inputMethodHints">
+      <set>Qt::ImhNone</set>
+     </property>
      <property name="placeholderText">
-      <string>e.g. VTO</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_54">
@@ -2489,7 +2341,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>245</y>
+       <y>235</y>
        <width>91</width>
        <height>55</height>
       </rect>
@@ -2565,7 +2417,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
       </rect>
      </property>
      <property name="placeholderText">
-      <string>e.g. VTO</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_58">
@@ -2841,6 +2693,95 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       <string/>
      </property>
     </widget>
+    <widget class="QLineEdit" name="accession_unit_section_thickness">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>250</y>
+       <width>371</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ref_unit_section_thickness">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>250</y>
+       <width>91</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_87">
+     <property name="geometry">
+      <rect>
+       <x>371</x>
+       <y>255</y>
+       <width>64</width>
+       <height>15</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IRI:</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="combo_unit_section_thickness">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>250</y>
+       <width>75</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>-1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>cm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>mm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>µm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>nm</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>pm</string>
+      </property>
+     </item>
+    </widget>
    </widget>
   </widget>
   <widget class="QFrame" name="frame">
@@ -2942,6 +2883,35 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
   <tabstop>tabWidget_2</tabstop>
   <tabstop>status</tabstop>
   <tabstop>status_2</tabstop>
+  <tabstop>histology_desc</tabstop>
+  <tabstop>rm_sample_preservation</tabstop>
+  <tabstop>search_sample_mounting</tabstop>
+  <tabstop>search_sample_preservation</tabstop>
+  <tabstop>rm_sample_mounting</tabstop>
+  <tabstop>name_sample_mounting</tabstop>
+  <tabstop>ref_sample_mounting</tabstop>
+  <tabstop>accession_sample_mounting</tabstop>
+  <tabstop>name_sample_preservation</tabstop>
+  <tabstop>ref_sample_preservation</tabstop>
+  <tabstop>accession_sample_preservation</tabstop>
+  <tabstop>name_sectioning_instrument</tabstop>
+  <tabstop>ref_sectioning_instrument</tabstop>
+  <tabstop>accession_sectioning_instrument</tabstop>
+  <tabstop>value_section_thickness</tabstop>
+  <tabstop>combo_unit_section_thickness</tabstop>
+  <tabstop>value_spatial_resolution</tabstop>
+  <tabstop>combo_unit_spatial_resolution</tabstop>
+  <tabstop>name_stain</tabstop>
+  <tabstop>ref_stain</tabstop>
+  <tabstop>accession_stain</tabstop>
+  <tabstop>search_stain</tabstop>
+  <tabstop>rm_stain</tabstop>
+  <tabstop>rm_sectioning_instrument</tabstop>
+  <tabstop>accession_unit_spatial_resolution</tabstop>
+  <tabstop>ref_unit_spatial_resolution</tabstop>
+  <tabstop>accession_unit_section_thickness</tabstop>
+  <tabstop>ref_unit_section_thickness</tabstop>
+  <tabstop>search_sectioning_instrument</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>
