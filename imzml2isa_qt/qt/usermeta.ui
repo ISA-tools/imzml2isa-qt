@@ -2494,7 +2494,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
       </rect>
      </property>
      <property name="placeholderText">
-      <string>e.g. VTO</string>
+      <string>e.g. CHEBI</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="name_stain">
@@ -2513,7 +2513,7 @@ font-family: &quot;EBI-Functional&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. Homo sapiens</string>
+      <string>e.g. Night blue</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_82">
@@ -2587,7 +2587,7 @@ font-family: &quot;EBI-Conceptual&quot;;</string>
       <string/>
      </property>
      <property name="placeholderText">
-      <string>e.g. http://purl.obolibrary.org/obo/VTO_0011993</string>
+      <string>e.g. http://purl.obolibrary.org/obo/CHEBI_87645</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_85">
