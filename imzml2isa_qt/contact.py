@@ -28,7 +28,7 @@ CONTACT = OrderedDict([
 			('first_name', ''), ('mid', ''), ('last_name',''),
 			('phone',''), ('email',''), ('fax',''), ('affiliation',''),
 			('adress',''),
-			('roles',{'accession':'', 'ref':'', 'value':''}),
+			('roles',{'accession':'', 'ref':'', 'name':''}),
 		  ])
 
 
@@ -79,8 +79,8 @@ class ContactDialog(QDialog):
             self.ui.combo_roles.addItem("")
             self.ui.combo_roles.setItemText(i, _translate("Dialog", status))
         # Check if value to display
-        if self.contact['roles']['value']:
-            self.ui.combo_roles.setCurrentText(self.contact['roles']['value'])
+        if self.contact['roles']['name']:
+            self.ui.combo_roles.setCurrentText(self.contact['roles']['name'])
             self.ui.roles.setText(self.contact['roles']['accession'])
         else:
             self.ui.combo_roles.setCurrentIndex(-1)
@@ -99,7 +99,7 @@ class ContactDialog(QDialog):
             elif key == 'adress':
                 self.contact['adress'] = self.ui.adress.toPlainText() or ''
 
-        self.contact['roles']['value'] = self.ui.combo_roles.currentText() if self.ui.roles.text() else ''
+        self.contact['roles']['name'] = self.ui.combo_roles.currentText() if self.ui.roles.text() else ''
         self.contact['roles']['accession'] = self.ui.roles.text()
         self.contact['roles']['ref'] = 'PRO' if self.ui.roles.text() else ''
 
