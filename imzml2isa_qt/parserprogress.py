@@ -175,8 +175,10 @@ class ParserThread(QThread):
 
             # Create the isa Tab
             try:
-                isa_tab_create = mzml2isa.isa.ISA_Tab(self.outputDir, study, self.userMeta).write(metalist, 'imzML')
+                print("TRY")
+                isa_tab_create = mzml2isa.isa.ISA_Tab(self.outputDir, study, usermeta=self.userMeta).write(metalist, 'imzML')
             except Exception as e:
+
                 self.ErrorSig.emit('An error was encountered while writing ISA-Tab (study {}):\n\n{}'.format(study,
                                                                                                              str(type(e).__name__)+" "+str(e)
                                                                                                        )
@@ -219,8 +221,8 @@ class ParserThread(QThread):
             try:
                 metalist.append(mzml2isa.mzml.imzMLmeta(mzml_file).meta)
             except Exception as e:
-                self.ErrorSig.emit('An error was encountered while parsing {}:\n\n{}'.format(os.path.basename(mzml_file),
-                                                                                             str(type(e).__name__)+" "+str(e)
+                self.ErrorSig.emit('An error was encountered while parsing {}:\n\n{} {}'.format(os.path.basename(mzml_file),
+                                                                                             type(e).__name__, str(e)
                                                                                              )
                                   )
                 self.force_quit = True
@@ -230,11 +232,11 @@ class ParserThread(QThread):
         # Create the isa Tab
         self.Console.emit("> Creating ISA-Tab files")
         try:
-            mzml2isa.isa.ISA_Tab( self.outputDir, self.studyName, self.userMeta).write(metalist, 'imzML')
+            mzml2isa.isa.ISA_Tab( self.outputDir, self.studyName, usermeta=self.userMeta).write(metalist, 'imzML')
 
         except Exception as e:
-            self.ErrorSig.emit('An error was encountered while writing ISA-Tab in {}:\n\n{}'.format(self.outputDir,
-                                                                                                    str(type(e).__name__)+" "+str(e)
+            self.ErrorSig.emit('An error was encountered while writing ISA-Tab in {}:\n\n{} {}'.format(self.outputDir,
+                                                                                                    type(e).__name__, str(e)
                                                                                                    )
                               )
             return 0
