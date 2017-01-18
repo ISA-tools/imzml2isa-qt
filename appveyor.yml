@@ -25,7 +25,7 @@ build_script:
   - pyinstaller main.spec
 
 artifacts:
-   - path: imzml2isa_qt\dist\mzml2isa_gui.exe
+   - path: imzml2isa_qt\dist\imzml2isa_gui.exe
      name: imzml2isa_gui
 
 
