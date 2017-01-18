@@ -21,7 +21,7 @@ install:
 
 
 build_script:
-  - cd mzml2isa_qt
+  - cd imzml2isa_qt
   - pyinstaller main.spec
 
 artifacts:
